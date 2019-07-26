@@ -3,37 +3,71 @@ import numpy as np
 import sys
 
 
-def main():
-    imgStr = "20180309_090603.jpg"
-    img = cv2.imread(imgStr)
-    cv2.imshow('Imagen', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+def imgColorManipulation(imgName, colorOption):
+    # Leemos la imagen recibida como parametro
+    img = cv2.imread(imgName)
 
-    # Obtenemos las dimensiones de la imagen, así como los canales (RGB)
+    # Obtenemos las dimensiones de la imagen, asi como los canales (RGB)
     alto = img.shape[0]
     ancho = img.shape[1]
     canales = img.shape[2]
 
-    # Creamos una matriz de pixeles inicializada a cero
-    gris = np.zeros((alto, ancho, 1))
+    # Validamos la opcion recibida como parametro
+    if colorOption == 1:
+        # Se muestra unicamente el color azul activo
+        imgCanales = np.array([0])
+    elif colorOption == 2:
+        # Se muestra unicamente activo el color verde
+        imgCanales = np.array([1])
+    elif colorOption == 3:
+        # Se muestra unicamente activo el color rojo
+        imgCanales = np.array([2])
+    elif colorOption == 10:
+        # Se muestra unicamente activo los colores rojo y verde
+        imgCanales = np.array([2,1])
+    elif colorOption == 20:
+        # Se muestra unicamente activo los colores verde y azul
+        imgCanales = np.array([1,0])
+    elif colorOption == 30:
+        # Se muestra unicamente activo los colores azul y rojo
+        imgCanales = np.array([0,1])
 
-    # Recorremos la imagen para convertirla a escala de grises
+    # Creamos una matriz de pixeles inicializada a cero
+    imgSalida = np.zeros((alto, ancho, canales))
+
+    # Recorremos la imagen pixel por pixel
     for i in range(alto):
         for j in range(ancho):
             pixel = img[i,j]
-            grisAritmetico = int(pixel[0]) + int(pixel[1]) + int(pixel[2])/3
-            gris[i,j] = grisAritmetico
 
-    # Guardamos la imagen en escala de grises
-    cv2.imwrite('grises_' + imgStr, gris)
+            newPixelRojo = 0
+            newPixelVerde = 0
+            newPixelAzul = 0
 
-    # Mostramos la imagen recién guardada
-    img_gris = cv2.imread('grises_' + imgStr)
-    cv2.imshow('Imagen grises', img_gris)
+            for c in imgCanales:
+                if c == 0:
+                    # azul
+                    newPixelAzul = pixel[c]
+                elif c == 1:
+                    # verde
+                    newPixelVerde = pixel[c]
+                elif c == 2:
+                    # rojo
+                    newPixelRojo = pixel[c]
+            
+            imgSalida[i,j] = [newPixelAzul, newPixelVerde, newPixelRojo]
+
+    # Guardamos la imagen
+    newImgName = str(colorOption) + '_' + imgName
+    cv2.imwrite(newImgName, imgSalida)
+
+    # Mostramos la imagen recien guardada
+    newImg = cv2.imread(newImgName)
+    cv2.imshow('Imagen manipulada', newImg)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
     sys.exit()
 
-main()
+imgStr = "test_image.jpg"
+imgColorManipulation(imgStr, 30)
