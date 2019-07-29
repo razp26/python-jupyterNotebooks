@@ -69,4 +69,4 @@ def imgColorManipulation(imgName, colorOption):
     sys.exit()
 
 imgStr = "test_image.jpg"
-imgColorManipulation(imgStr, 30)
+imgColorManipulation(imgStr, 1)
