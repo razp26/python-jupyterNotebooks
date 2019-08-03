@@ -3,7 +3,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 
-def divideColorImage(imgColorFile):
+def colorImageHistogram(imgColorFile):
     # Leemos las imagenes recibidas como parametros
     imgColor = cv2.imread(imgColorFile)
 
@@ -52,5 +52,5 @@ def divideColorImage(imgColorFile):
     plt.savefig('grey_histogram.png')
     plt.clf()
 
-divideColorImage("test_image.JPG")
+colorImageHistogram("test_image.JPG")
 sys.exit()
