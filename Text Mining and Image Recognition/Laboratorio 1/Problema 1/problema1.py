@@ -31,8 +31,7 @@ def imgEQ(imgName):
             imgSalida[i,j] = 255 * cdf[pixel]
 
     # Guardamos la imagen
-    cv2.imwrite("eq_image.jpg", imgSalida)
-    sys.exit()
+    cv2.imwrite("eq_" + imgName, imgSalida)
 
 
 def getCDF(hist):
@@ -49,4 +48,8 @@ def getCDF(hist):
 imgStr = "test_image.jpg"
 imgEQ(imgStr)
 
+imgStr = "drums.jpg"
+imgEQ(imgStr)
+
+sys.exit()
 

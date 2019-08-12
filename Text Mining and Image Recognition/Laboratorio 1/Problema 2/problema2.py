@@ -77,7 +77,7 @@ def canny(imgName):
 
     # Aplicamos el algoritmo de NO supresion maxima y threshold a la matriz de gradiente
     # Definimos los valores de threhold alto y threshold bajo
-    thresholdAlto = 25
+    thresholdAlto = 15
     thresholdBajo = 10
 
     # Inicializamos la matriz de salida del NSM
@@ -193,4 +193,5 @@ def canny(imgName):
     cv2.destroyAllWindows() 
 
 
-canny("test_image.JPG")
+# canny("test_image.JPG")
+canny("drums.JPG")
